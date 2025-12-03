@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>加密工具：凱撒密碼</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <h1>🔐 簡單線上加密工具</h1>
+        
+        <div class="input-group">
+            <label for="inputText">輸入要處理的文本：</label>
+            <textarea id="inputText" rows="5" placeholder="輸入您的秘密信息..."></textarea>
+        </div>
+        
+        <div class="control-panel">
+    <div class="cipher-group caesar-controls">
+        <label for="shiftValue">凱撒偏移量 (1-25)：</label>
+        <input type="number" id="shiftValue" value="3" min="1" max="25">
+        <button id="encryptCaesarBtn" data-cipher="caesar" data-mode="encrypt">加密 (Caesar)</button>
+        <button id="decryptCaesarBtn" data-cipher="caesar" data-mode="decrypt">解密 (Caesar)</button>
+    </div>
+    
+    <div class="cipher-group pigpen-controls">
+        <button id="encryptPigpenBtn" data-cipher="pigpen" data-mode="encrypt">加密 (Pigpen)</button>
+        <button id="decryptPigpenBtn" data-cipher="pigpen" data-mode="decrypt">解密 (Pigpen)</button>
+    </div>
+</div>
+            
+            <div class="buttons">
+                <button id="encryptBtn" data-mode="encrypt">加密 (Caesar)</button>
+                <button id="decryptBtn" data-mode="decrypt">解密 (Caesar)</button>
+                </div>
+        </div>
+        
+        <div class="output-group">
+            <label for="outputText">輸出結果：</label>
+            <textarea id="outputText" rows="5" readonly placeholder="加密/解密後的文本將顯示在這裡..."></textarea>
+        </div>
+        
+        <p class="status-message" id="statusMessage"></p>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>

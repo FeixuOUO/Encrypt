@@ -1,0 +1,100 @@
+/* style.css */
+body {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    background-color: #f4f7f9;
+    color: #333;
+    display: flex;
+    justify-content: center;
+    padding: 20px;
+}
+
+.container {
+    background: #fff;
+    padding: 30px;
+    border-radius: 12px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    width: 100%;
+    max-width: 650px;
+}
+
+h1 {
+    text-align: center;
+    color: #007bff;
+    margin-bottom: 30px;
+}
+
+.input-group, .output-group {
+    margin-bottom: 20px;
+}
+
+label {
+    display: block;
+    margin-bottom: 8px;
+    font-weight: bold;
+}
+
+textarea {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+    box-sizing: border-box;
+    font-size: 16px;
+    resize: vertical;
+}
+
+.control-panel {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 25px;
+    flex-wrap: wrap;
+}
+
+.cipher-select label, .cipher-select input {
+    display: inline-block;
+    vertical-align: middle;
+}
+
+#shiftValue {
+    width: 60px;
+    padding: 8px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    text-align: center;
+}
+
+.buttons button {
+    padding: 10px 20px;
+    margin-left: 10px;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 16px;
+    transition: background-color 0.3s;
+}
+
+#encryptBtn {
+    background-color: #28a745;
+    color: white;
+}
+
+#encryptBtn:hover {
+    background-color: #218838;
+}
+
+#decryptBtn {
+    background-color: #007bff;
+    color: white;
+}
+
+#decryptBtn:hover {
+    background-color: #0056b3;
+}
+
+.status-message {
+    text-align: center;
+    font-weight: bold;
+    margin-top: 15px;
+    color: #dc3545; /* 預設為紅色，如果成功再用 JS 變更顏色 */
+}
