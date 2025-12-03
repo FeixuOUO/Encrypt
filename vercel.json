@@ -9,8 +9,8 @@
             }
         },
         {
-            "src": "api/*.py",
-            "use": "@vercel/static-build"
+            "src": "*.html",
+            "use": "@vercel/static"
         }
     ],
     "routes": [
