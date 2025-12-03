@@ -1,13 +1,22 @@
 {
     "version": 2,
-    "routes": [
+    "builds": [
         {
-            "src": "/api/caesar",
-            "dest": "/api/caesar.py"
+            "src": "api/index.py",
+            "use": "@vercel/python",
+            "config": {
+                "runtime": "python3.11"
+            }
         },
         {
-            "src": "/api/pigpen",
-            "dest": "/api/pigpen.py"
+            "src": "api/*.py",
+            "use": "@vercel/static-build"
+        }
+    ],
+    "routes": [
+        {
+            "src": "/api/(.*)",
+            "dest": "/api/index.py"
         },
         {
             "src": "/(.*)",
