@@ -1,26 +1,62 @@
-# 臨時 api/caesar.py (Vercel 官方最簡範例)
+# api/caesar.py
 from http.server import BaseHTTPRequestHandler
-from urllib import parse
+import json
+from vercel_sdk import Response, Request # 假設 Vercel 提供的 SDK 存在 (雖然在實際 Edge Function 運行時是隱式提供的)
 
-class handler(BaseHTTPRequestHandler):
+# --- 核心邏輯 (與 Flask 版本相同) ---
+
+def caesar_cipher(text, shift, mode="encrypt"):
+    """執行凱撒密碼加密或解密。"""
+    if mode == "decrypt":
+        shift = -shift
     
-    def do_GET(self):
-        # 設置 HTTP 狀態碼
-        self.send_response(200)
-        # 設置返回內容類型
-        self.send_header('Content-type', 'text/plain')
-        self.end_headers()
+    result = []
+    
+    for char in text:
+        if 'a' <= char <= 'z':
+            start = ord('a')
+            shifted_ord = (ord(char) - start + shift) % 26
+            result.append(chr(shifted_ord + start))
+        elif 'A' <= char <= 'Z':
+            start = ord('A')
+            shifted_ord = (ord(char) - start + shift) % 26
+            result.append(chr(shifted_ord + start))
+        else:
+            result.append(char)
+            
+    return "".join(result)
 
-        # 寫入返回內容
-        message = "Hello from Vercel Python!"
-        self.wfile.write(message.encode())
-        return
+# --- Vercel Edge Function 入口點 ---
 
-# 備註：如果是 Flask 應用，Vercel 只需要 app = Flask(__name__) 即可。
+def handler(request):
+    """Vercel Python Edge Function 的標準入口點。"""
+    
+    # 1. 檢查請求方法
+    if request.method != "POST":
+        return Response("Method Not Allowed. Only POST is supported.", status=405)
 
-# 如果您仍然想用 Flask，請確保它是：
-# from flask import Flask, jsonify
-# app = Flask(__name__)
-# @app.route('/api/caesar')
-# def handle_test():
-#     return jsonify({"message": "Flask test success!"})
+    try:
+        # 2. 從 request.json() 獲取 JSON 數據
+        data = request.json()
+        text = data.get('text', '')
+        shift = int(data.get('shift', 3))
+        mode = data.get('mode', 'encrypt')
+        
+        if not text:
+            return Response.json({"error": "No text provided"}, status=400)
+        
+        # 3. 處理加密
+        output = caesar_cipher(text, shift, mode)
+        
+        # 4. 返回 JSON 響應
+        return Response.json({
+            "success": True,
+            "original_text": text,
+            "shift": shift,
+            "mode": mode,
+            "output_text": output
+        }, status=200)
+
+    except Exception as e:
+        # 返回 500 內部錯誤
+        return Response.json({"error": f"Internal Server Error: {str(e)}"}, status=500)
