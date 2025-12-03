@@ -4,12 +4,12 @@ body {
     background-color: #f4f7f9;
     color: #333;
     
-    /* 修正置中 START */
+    /* 修正置中：使用 Flexbox 確保垂直和水平置中 */
     display: flex;
     justify-content: center; /* 水平置中 */
     align-items: center;     /* 垂直置中 */
-    min-height: 100vh;       /* 確保佔滿整個視窗高度 */
-    /* 修正置中 END */
+    min-height: 100vh;       /* 確保 body 至少佔滿整個視窗高度 */
+    margin: 0;               /* 移除預設 body 邊距 */
     
     padding: 20px;
 }
@@ -73,12 +73,12 @@ textarea {
     border: 1px solid #ccc;
     border-radius: 4px;
     text-align: center;
-    margin-right: 15px; /* 與按鈕保持間距 */
+    margin-right: 15px;
 }
 
 .cipher-group button {
     padding: 10px 20px;
-    margin-right: 10px; /* 從 margin-left 改為 margin-right */
+    margin-right: 10px;
     border: none;
     border-radius: 6px;
     cursor: pointer;
@@ -108,5 +108,5 @@ textarea {
     text-align: center;
     font-weight: bold;
     margin-top: 15px;
-    color: #dc3545; /* 預設為紅色，如果成功再用 JS 變更顏色 */
+    color: #dc3545;
 }

@@ -60,7 +60,7 @@ document.addEventListener('DOMContentLoaded', () => {
                  throw new Error(`API 終點 ${apiUrl} 未找到 (404)。請檢查 Vercel 路由。`);
             }
             if (!response.ok) {
-                 const errorData = await response.json();
+                 const errorData = await response.json().catch(() => ({error: '無法解析 API 錯誤響應'}));
                  throw new Error(errorData.error || `HTTP 錯誤：${response.status}`);
             }
 

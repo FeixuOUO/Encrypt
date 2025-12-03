@@ -2,7 +2,7 @@
 from flask import Flask, request, jsonify
 from api.caesar_logic import handle_caesar_request
 from api.pigpen_logic import handle_pigpen_request
-from flask_cors import CORS # 導入 CORS 擴展
+from flask_cors import CORS # 關鍵：導入 CORS 擴展
 
 # Vercel 尋找的入口點必須是 'app'
 app = Flask(__name__)
