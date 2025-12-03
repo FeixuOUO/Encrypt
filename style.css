@@ -3,8 +3,14 @@ body {
     font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
     background-color: #f4f7f9;
     color: #333;
+    
+    /* 修正置中 START */
     display: flex;
-    justify-content: center;
+    justify-content: center; /* 水平置中 */
+    align-items: center;     /* 垂直置中 */
+    min-height: 100vh;       /* 確保佔滿整個視窗高度 */
+    /* 修正置中 END */
+    
     padding: 20px;
 }
 
@@ -43,17 +49,22 @@ textarea {
     resize: vertical;
 }
 
+/* 為了讓按鈕組在排版上更好看，讓他們垂直排列 */
 .control-panel {
     display: flex;
-    justify-content: space-between;
-    align-items: center;
+    flex-direction: column; /* 讓兩個 cipher-group 垂直堆疊 */
+    gap: 15px; /* 增加組與組之間的間距 */
     margin-bottom: 25px;
+}
+
+.cipher-group {
+    display: flex;
+    align-items: center;
     flex-wrap: wrap;
 }
 
-.cipher-select label, .cipher-select input {
-    display: inline-block;
-    vertical-align: middle;
+.cipher-group label {
+    margin-right: 15px;
 }
 
 #shiftValue {
@@ -62,11 +73,12 @@ textarea {
     border: 1px solid #ccc;
     border-radius: 4px;
     text-align: center;
+    margin-right: 15px; /* 與按鈕保持間距 */
 }
 
-.buttons button {
+.cipher-group button {
     padding: 10px 20px;
-    margin-left: 10px;
+    margin-right: 10px; /* 從 margin-left 改為 margin-right */
     border: none;
     border-radius: 6px;
     cursor: pointer;
@@ -74,21 +86,21 @@ textarea {
     transition: background-color 0.3s;
 }
 
-#encryptBtn {
+#encryptCaesarBtn, #encryptPigpenBtn {
     background-color: #28a745;
     color: white;
 }
 
-#encryptBtn:hover {
+#encryptCaesarBtn:hover, #encryptPigpenBtn:hover {
     background-color: #218838;
 }
 
-#decryptBtn {
+#decryptCaesarBtn, #decryptPigpenBtn {
     background-color: #007bff;
     color: white;
 }
 
-#decryptBtn:hover {
+#decryptCaesarBtn:hover, #decryptPigpenBtn:hover {
     background-color: #0056b3;
 }
 

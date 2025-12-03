@@ -16,23 +16,17 @@
         </div>
         
         <div class="control-panel">
-    <div class="cipher-group caesar-controls">
-        <label for="shiftValue">凱撒偏移量 (1-25)：</label>
-        <input type="number" id="shiftValue" value="3" min="1" max="25">
-        <button id="encryptCaesarBtn" data-cipher="caesar" data-mode="encrypt">加密 (Caesar)</button>
-        <button id="decryptCaesarBtn" data-cipher="caesar" data-mode="decrypt">解密 (Caesar)</button>
-    </div>
-    
-    <div class="cipher-group pigpen-controls">
-        <button id="encryptPigpenBtn" data-cipher="pigpen" data-mode="encrypt">加密 (Pigpen)</button>
-        <button id="decryptPigpenBtn" data-cipher="pigpen" data-mode="decrypt">解密 (Pigpen)</button>
-    </div>
-</div>
+            <div class="cipher-group caesar-controls">
+                <label for="shiftValue">凱撒偏移量 (1-25)：</label>
+                <input type="number" id="shiftValue" value="3" min="1" max="25">
+                <button id="encryptCaesarBtn" data-cipher="caesar" data-mode="encrypt">加密 (Caesar)</button>
+                <button id="decryptCaesarBtn" data-cipher="caesar" data-mode="decrypt">解密 (Caesar)</button>
+            </div>
             
-            <div class="buttons">
-                <button id="encryptBtn" data-mode="encrypt">加密 (Caesar)</button>
-                <button id="decryptBtn" data-mode="decrypt">解密 (Caesar)</button>
-                </div>
+            <div class="cipher-group pigpen-controls">
+                <button id="encryptPigpenBtn" data-cipher="pigpen" data-mode="encrypt">加密 (Pigpen)</button>
+                <button id="decryptPigpenBtn" data-cipher="pigpen" data-mode="decrypt">解密 (Pigpen)</button>
+            </div>
         </div>
         
         <div class="output-group">

@@ -5,10 +5,10 @@ document.addEventListener('DOMContentLoaded', () => {
     const shiftValue = document.getElementById('shiftValue');
     const statusMessage = document.getElementById('statusMessage');
 
-    // API URL 映射
+    // 關鍵修正：新的 API URL 映射，匹配 vercel.json 的單一入口路由
     const API_URLS = {
-        'caesar': '/api/caesar',
-        'pigpen': '/api/pigpen'
+        'caesar': '/api/encrypt/caesar',
+        'pigpen': '/api/encrypt/pigpen'
     };
 
     /**
@@ -22,7 +22,7 @@ document.addEventListener('DOMContentLoaded', () => {
         outputText.value = '';
 
         const text = inputText.value;
-        const apiUrl = API_URLS[cipher];
+        const apiUrl = API_URLS[cipher]; // 使用新的正確路徑
         
         if (!text) {
             statusMessage.textContent = '錯誤：請輸入文本。';
@@ -55,9 +55,18 @@ document.addEventListener('DOMContentLoaded', () => {
                 body: JSON.stringify(requestBody)
             });
 
+            // 檢查 HTTP 狀態碼
+            if (response.status === 404) {
+                 throw new Error(`API 終點 ${apiUrl} 未找到 (404)。請檢查 Vercel 路由。`);
+            }
+            if (!response.ok) {
+                 const errorData = await response.json();
+                 throw new Error(errorData.error || `HTTP 錯誤：${response.status}`);
+            }
+
             const data = await response.json();
 
-            if (response.ok && data.success) {
+            if (data.success) {
                 outputText.value = data.output_text;
                 let msg = `${cipher.charAt(0).toUpperCase() + cipher.slice(1)} ${mode === 'encrypt' ? '加密' : '解密'}成功！`;
                 if (cipher === 'caesar') {
@@ -70,6 +79,7 @@ document.addEventListener('DOMContentLoaded', () => {
             }
 
         } catch (error) {
+            // 服務器錯誤或 JSON 解析錯誤
             statusMessage.textContent = `伺服器錯誤: ${error.message}`;
             statusMessage.style.color = '#dc3545';
         }
@@ -78,9 +88,12 @@ document.addEventListener('DOMContentLoaded', () => {
     // 統一綁定所有按鈕的事件監聽器
     document.querySelectorAll('.control-panel button').forEach(button => {
         button.addEventListener('click', () => {
+            // 從 data-* 屬性中獲取 cipher 和 mode
             const cipher = button.getAttribute('data-cipher');
             const mode = button.getAttribute('data-mode');
-            handleCipher(cipher, mode);
+            if (cipher && mode) {
+                 handleCipher(cipher, mode);
+            }
         });
     });
 });
